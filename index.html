@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشغل القرآن</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            color: #ecf0f1;
+            transition: background 0.5s, color 0.5s;
+            overflow-x: hidden;
+            background-size: 150% 150%;
+            background-image: linear-gradient(45deg, #2c3e50 25%, transparent 25%, transparent 50%, #2c3e50 50%, #2c3e50 75%, transparent 75%, transparent);
+            animation: gradient-animation 5s infinite linear;
+        }
+
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
+        header {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(to right, #2c3e50, #34495e);
+            padding: 10px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            width: 100%;
+            background: linear-gradient(to right, #2c3e50, #34495e);
+            border-bottom: 2px solid #3498db;
+        }
+
+        nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 1.2em;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: #3498db;
+            transform: scale(1.1);
+        }
+
+        .action-buttons-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .action-button {
+            padding: 15px 30px;
+            font-size: 1.4em;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s, border 0.3s;
+            margin: 20px;
+            border: 2px solid #3498db;
+            border-radius: 12px;
+            background: linear-gradient(to right, #2c3e50, #34495e);
+            color: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-button img {
+            margin-right: 10px;
+            width: 40px;
+            border-radius: 50%;
+        }
+
+        .action-button:hover {
+            background: linear-gradient(to right, #2c3e50, #34495e);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            color: #ecf0f1;
+            transform: translateY(-2px);
+        }
+
+        .action-button:active {
+            transform: scale(0.95);
+        }
+
+        body.night-mode {
+            background: linear-gradient(to right, #2c3e50, #34495e);
+            color: #ecf0f1;
+        }
+
+        .night-mode .action-button {
+            background: linear-gradient(to right, #34495e, #2c3e50);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: #ecf0f1;
+            border: 2px solid #ecf0f1;
+        }
+
+        .selected-reader {
+            margin-top: 30px;
+            font-size: 1.2em;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .selected-reader.show {
+            opacity: 1;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 10px;
+            color: #ecf0f1;
+            text-align: center;
+            width: 100%;
+            background: linear-gradient(to right, #2c3e50, #34495e);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 20px 20px 0 0;
+        }
+
+        @media screen and (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav a {
+                margin: 10px 0;
+            }
+
+            .action-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="thanks.html" onclick="scrollToSection('readers')">رسالة لكل مستخدم</a>
+        <a href="ta3rif.html" onclick="scrollToSection('readers')">القراء</a>
+        <a href="contactus.html" onclick="scrollToSection('contact')">تواصل معنا</a>
+    </nav>
+
+    <header>مشغل القرآن</header>
+
+    <div class="action-buttons-container">
+        <a href="sours.html" class="action-button">
+            <img src="OIP (3).png" alt="Reader 1" /> القارئ ياسين الجزائري
+            
+        </a>            
+
+
+        <a href="soors.html" class="action-button">
+            <img src="maxresdefault.jpg" alt="Reader 2" /> القارئ الحصري 
+        </a>
+    </div>
+
+    <div class="selected-reader"></div>
+
+    <footer>© 2023 مشغل القرآن. جميع الحقوق محفوظة.</footer>
+
+    <script>
+        function selectReader(readerNumber) {
+            const body = document.body;
+            if (readerNumber === 1) {
+                body.style.background = 'linear-gradient(to right, #3498db, #2c3e50)';
+            } else if (readerNumber === 2) {
+                // Remove the line below to prevent changing the background color
+                // body.style.background = 'linear-gradient(to right, #e74c3c, #c0392b)';
+            }
+
+            const selectedReader = document.querySelector('.selected-reader');
+            selectedReader.innerHTML = `<p>القارئ المحدد: ${readerNumber}</p>`;
+            selectedReader.classList.add('show');
+
+            setTimeout(() => {
+                selectedReader.classList.remove('show');
+            }, 3000); // Hide after 3 seconds
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

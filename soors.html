@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>واجهة السور القرآنية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            color: #ecf0f1;
+            overflow-x: hidden;
+        }
+
+        header {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(to right, #2c3e50, #34495e);
+            padding: 10px;
+            border-radius: 0 0 20px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .search-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .search-box {
+            padding: 10px;
+            font-size: 1em;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        .search-button {
+            padding: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s, border 0.3s;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            background: linear-gradient(to right, #2c3e50, #34495e);
+            color: #ecf0f1;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-button:hover {
+            background: linear-gradient(to right, #2c3e50, #34495e);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            color: #ecf0f1;
+            transform: translateY(-2px);
+        }
+
+        .search-button:active {
+            transform: scale(0.95);
+        }
+
+        .sura-buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .sura-button {
+            padding: 15px 30px;
+            font-size: 1.4em;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s, border 0.3s;
+            margin: 20px;
+            border: 2px solid #3498db;
+            border-radius: 12px;
+            background: linear-gradient(to right, #2c3e50, #34495e);
+            color: #ecf0f1;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sura-button:hover {
+            background: linear-gradient(to right, #2c3e50, #34495e);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            color: #ecf0f1;
+            transform: translateY(-2px);
+        }
+
+        .sura-button:active {
+            transform: scale(0.95);
+        }
+
+        audio {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .search-result {
+            padding: 10px;
+            font-size: 1em;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 10px;
+            color: #ecf0f1;
+            text-align: center;
+            width: 100%;
+            background: linear-gradient(to right, #2c3e50, #34495e);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 20px 20px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        واجهة السور القرآنية
+        <div class="search-container">
+            <input type="text" class="search-box" id="searchBox" oninput="search()" placeholder="ابحث هنا...">
+            <button class="search-button">ابحث</button>
+        </div>
+    </header>
+
+    <div class="sura-buttons-container" id="suraButtons">
+        <!-- إضافة أزرار السور هنا -->
+        <button class="sura-button" onclick="playSurah(1)">الفاتحة</button>
+<button class="sura-button" onclick="playSurah(2)">البقرة</button>
+<button class="sura-button" onclick="playSurah(3)">آل عمران</button>
+<button class="sura-button" onclick="playSurah(4)">النساء</button>
+<button class="sura-button" onclick="playSurah(5)">المائدة</button>
+<button class="sura-button" onclick="playSurah(6)">الأنعام</button>
+<button class="sura-button" onclick="playSurah(7)">الأعراف</button>
+<button class="sura-button" onclick="playSurah(8)">الأنفال</button>
+<button class="sura-button" onclick="playSurah(9)">التوبة</button>
+<button class="sura-button" onclick="playSurah(10)">يونس</button>
+<button class="sura-button" onclick="playSurah(11)">هود</button>
+<button class="sura-button" onclick="playSurah(12)">يوسف</button>
+<button class="sura-button" onclick="playSurah(13)">الرعد</button>
+<button class="sura-button" onclick="playSurah(14)">إبراهيم</button>
+<button class="sura-button" onclick="playSurah(15)">الحجر</button>
+<button class="sura-button" onclick="playSurah(16)">النحل</button>
+<button class="sura-button" onclick="playSurah(17)">الإسراء</button>
+<button class="sura-button" onclick="playSurah(18)">الكهف</button>
+<button class="sura-button" onclick="playSurah(19)">مريم</button>
+<button class="sura-button" onclick="playSurah(20)">طه</button>
+<button class="sura-button" onclick="playSurah(21)">الأنبياء</button>
+<button class="sura-button" onclick="playSurah(22)">الحج</button>
+<button class="sura-button" onclick="playSurah(23)">المؤمنون</button>
+<button class="sura-button" onclick="playSurah(24)">النور</button>
+<button class="sura-button" onclick="playSurah(25)">الفرقان</button>
+<button class="sura-button" onclick="playSurah(26)">الشعراء</button>
+<button class="sura-button" onclick="playSurah(27)">النمل</button>
+<button class="sura-button" onclick="playSurah(28)">القصص</button>
+<button class="sura-button" onclick="playSurah(29)">العنكبوت</button>
+<button class="sura-button" onclick="playSurah(30)">الروم</button>
+<button class="sura-button" onclick="playSurah(31)">لقمان</button>
+<button class="sura-button" onclick="playSurah(32)">السجدة</button>
+<button class="sura-button" onclick="playSurah(33)">الأحزاب</button>
+<button class="sura-button" onclick="playSurah(34)">سبأ</button>
+<button class="sura-button" onclick="playSurah(35)">فاطر</button>
+<button class="sura-button" onclick="playSurah(36)">يس</button>
+<button class="sura-button" onclick="playSurah(37)">الصافات</button>
+<button class="sura-button" onclick="playSurah(38)">ص</button>
+<button class="sura-button" onclick="playSurah(39)">الزمر</button>
+<button class="sura-button" onclick="playSurah(40)">غافر</button>
+<button class="sura-button" onclick="playSurah(41)">فصلت</button>
+<button class="sura-button" onclick="playSurah(42)">الشورى</button>
+<button class="sura-button" onclick="playSurah(43)">الزخرف</button>
+<button class="sura-button" onclick="playSurah(44)">الدخان</button>
+<button class="sura-button" onclick="playSurah(45)">الجاثية</button>
+<button class="sura-button" onclick="playSurah(46)">الأحقاف</button>
+<button class="sura-button" onclick="playSurah(47)">محمد</button>
+<button class="sura-button" onclick="playSurah(48)">الفتح</button>
+<button class="sura-button" onclick="playSurah(49)">الحجرات</button>
+<button class="sura-button" onclick="playSurah(50)">ق</button>
+<button class="sura-button" onclick="playSurah(51)">الذاريات</button>
+<button class="sura-button" onclick="playSurah(52)">الطور</button>
+<button class="sura-button" onclick="playSurah(53)">النجم</button>
+<button class="sura-button" onclick="playSurah(54)">القمر</button>
+<button class="sura-button" onclick="playSurah(55)">الرحمان</button>
+<button class="sura-button" onclick="playSurah(56)">الواقعة</button>
+<button class="sura-button" onclick="playSurah(57)">الحديد</button>
+<button class="sura-button" onclick="playSurah(58)">المجادلة</button>
+<button class="sura-button" onclick="playSurah(59)">الحشر</button>
+<button class="sura-button" onclick="playSurah(60)">الممتحنة</button>
+<button class="sura-button" onclick="playSurah(61)">الصف</button>
+<button class="sura-button" onclick="playSurah(62)">الجمعة</button>
+<button class="sura-button" onclick="playSurah(63)">المنافقون</button>
+<button class="sura-button" onclick="playSurah(64)">التغابن</button>
+<button class="sura-button" onclick="playSurah(65)">الطلاق</button>
+<button class="sura-button" onclick="playSurah(66)">التحريم</button>
+<button class="sura-button" onclick="playSurah(67)">الملك</button>
+<button class="sura-button" onclick="playSurah(68)">القلم</button>
+<button class="sura-button" onclick="playSurah(69)">الحاقة</button>
+<button class="sura-button" onclick="playSurah(70)">المعارج</button>
+<button class="sura-button" onclick="playSurah(71)">نوح</button>
+<button class="sura-button" onclick="playSurah(72)">الجن</button>
+<button class="sura-button" onclick="playSurah(73)">المزمل</button>
+<button class="sura-button" onclick="playSurah(74)">المدثر</button>
+<button class="sura-button" onclick="playSurah(75)">القيامة</button>
+<button class="sura-button" onclick="playSurah(76)">الإنسان</button>
+<button class="sura-button" onclick="playSurah(77)">المرسلات</button>
+<button class="sura-button" onclick="playSurah(78)">النبأ</button>
+<button class="sura-button" onclick="playSurah(79)">النازعات</button>
+<button class="sura-button" onclick="playSurah(80)">عبس</button>
+<button class="sura-button" onclick="playSurah(81)">التكوير</button>
+<button class="sura-button" onclick="playSurah(82)">الإنفطار</button>
+<button class="sura-button" onclick="playSurah(83)">المطففين</button>
+<button class="sura-button" onclick="playSurah(84)">الإنشقاق</button>
+<button class="sura-button" onclick="playSurah(85)">البروج</button>
+<button class="sura-button" onclick="playSurah(86)">الطارق</button>
+<button class="sura-button" onclick="playSurah(87)">الأعلى</button>
+<button class="sura-button" onclick="playSurah(88)">الغاشية</button>
+<button class="sura-button" onclick="playSurah(89)">الفجر</button>
+<button class="sura-button" onclick="playSurah(90)">البلد</button>
+<button class="sura-button" onclick="playSurah(91)">الشمس</button>
+<button class="sura-button" onclick="playSurah(92)">الليل</button>
+<button class="sura-button" onclick="playSurah(93)">الضحى</button>
+<button class="sura-button" onclick="playSurah(94)">الشرح</button>
+<button class="sura-button" onclick="playSurah(95)">التين</button>
+<button class="sura-button" onclick="playSurah(96)">العلق</button>
+<button class="sura-button" onclick="playSurah(97)">القدر</button>
+<button class="sura-button" onclick="playSurah(98)">البينة</button>
+<button class="sura-button" onclick="playSurah(99)">الزلزلة</button>
+<button class="sura-button" onclick="playSurah(100)">العاديات</button>
+<button class="sura-button" onclick="playSurah(101)">القارعة</button>
+<button class="sura-button" onclick="playSurah(102)">التكاثر</button>
+<button class="sura-button" onclick="playSurah(103)">العصر</button>
+<button class="sura-button" onclick="playSurah(104)">الهمزة</button>
+<button class="sura-button" onclick="playSurah(105)">الفيل</button>
+<button class="sura-button" onclick="playSurah(106)">قريش</button>
+<button class="sura-button" onclick="playSurah(107)">الماعون</button>
+<button class="sura-button" onclick="playSurah(108)">الكوثر</button>
+<button class="sura-button" onclick="playSurah(109)">الكافرون</button>
+<button class="sura-button" onclick="playSurah(110)">النصر</button>
+<button class="sura-button" onclick="playSurah(111)">المسد</button>
+<button class="sura-button" onclick="playSurah(112)">الإخلاص</button>
+<button class="sura-button" onclick="playSurah(113)">الفلق</button>
+<button class="sura-button" onclick="playSurah(114)">الناس</button>
+        
+        
+        <!-- ... -->
+    </div>
+
+    <audio id="audioPlayer" controls>
+        <!-- الملف الصوتي سيتم تحديده في السيناريو البرمجي -->
+    </audio>
+
+    <div id="searchResult" class="search-result"></div>
+
+    <footer>© 2023 واجهة السور القرآنية. جميع الحقوق محفوظة.</footer>
+
+    <script>
+        function playSurah(surahNumber) {
+    const audioPlayer = document.getElementById('audioPlayer');
+    // استخدام padStart لضمان وجود صفر إذا كانت الأرقام تحتوي على رقم واحد فقط
+    const paddedSurahNumber = surahNumber.toString().padStart(3, '0');
+    const surahAudioPath = `audio_files/${paddedSurahNumber}.mp3`;
+    audioPlayer.src = surahAudioPath;
+    audioPlayer.play();
+    }
+
+
+        function search() {
+            const searchBox = document.getElementById('searchBox');
+            const suraButtons = document.getElementById('suraButtons');
+            const searchResult = document.getElementById('searchResult');
+
+            const searchTerm = searchBox.value.trim().toLowerCase();
+
+            // إعادة جميع الأزرار إلى الوضع الافتراضي
+            suraButtons.querySelectorAll('.sura-button').forEach(button => {
+                button.style.display = 'block';
+            });
+
+            // إذا كانت مربع البحث غير فارغ، قم بإخفاء الأزرار غير المطابقة
+            if (searchTerm !== '') {
+                suraButtons.querySelectorAll('.sura-button').forEach(button => {
+                    const buttonText = button.textContent.trim().toLowerCase();
+                    if (!buttonText.includes(searchTerm)) {
+                        button.style.display = 'none';
+                    }
+                });
+            }
+
+            // عرض نتائج البحث
+            const visibleButtons = suraButtons.querySelectorAll('.sura-button[style="display: block;"]');
+            searchResult.textContent = `عدد النتائج: ${visibleButtons.length}`;
+        }
+    </script>
+</body>
+</html>
